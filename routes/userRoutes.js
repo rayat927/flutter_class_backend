@@ -91,7 +91,11 @@ router.delete('/delete', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    con.query(`select * from users`, function (err, results) {
+    let conditions = ''
+
+    conditions = req.query.id != undefined && req.query.id != '' ? ` and id=${req.query.id}` : ``
+
+    con.query(`select * from users where 1=1 ${conditions}`, function (err, results) {
         if (err) throw err;
         res.status(201).json(results)
     })

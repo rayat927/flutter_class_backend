@@ -66,4 +66,11 @@ router.delete('/delete', (req, res) => {
     })
 })
 
+router.get('/top_rated', (req, res) => {
+    con.query(`select * from products order by rating desc`, function(err, result) {
+        if(err) throw err;
+        res.status(201).json(result)
+    })
+})
+
 module.exports = router
